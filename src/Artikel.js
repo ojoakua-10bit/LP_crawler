@@ -10,11 +10,23 @@ class Artikel extends Component {
             content: undefined,
         };
         const updateContent = (error, response, body) => {
-                console.log(body);
-                this.setState({content: body});
+            console.log(body);
+            this.setState({content: body});
+            const $ = cheerio.load(this.state.content);
+            const lnk = $('.news-item');
+            let i = 0;
+            console.log('Headlines of: www.gsmarena.com');
+            lnk.each(function(){
+                if(i <= 5){
+                    console.log(i + '.', $(this).children('a').children('h3').text());
+                    console.log('http://www.gsmarena.com/' + $(this).children('a').attr('href'));
+                    console.log();
+                    i++;
+                }
+            });
         };
         request.get({url: 'https://www.gsmarena.com/'}, updateContent);
-        
+
         console.log(this.state.content);
         /*if (this.state.content) {
             const $ = cheerio.load(this.state.content);

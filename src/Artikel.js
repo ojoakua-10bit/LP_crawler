@@ -27,7 +27,7 @@ class Artikel extends Component {
         }
 
         const updateContent = (error, response, body) => {
-            console.log(body);
+            //console.log(body);
             const $ = cheerio.load(body);
             const lnk = $('.news-item');
             let i = 0;
@@ -51,16 +51,18 @@ class Artikel extends Component {
 
     render() {
         let cn = this.state.content.map((obj) =>
-            <div key={obj.title}>
-                <h3><a href={obj.link}>{obj.title}</a></h3>
-                <img src={obj.imguri} alt={obj.title}/>
-                <p>{obj.conten}<a href={obj.link}>Read more...</a></p>
+            <div key={obj.title} className={"col-sm-12 news-item"}>
+                <div className={"col-sm-3"}><img src={obj.imguri} alt={obj.title} width={"240px"}/></div>
+                <div className={"col-sm-9"}>
+                    <h3><a href={obj.link}>{obj.title}</a></h3>
+                    <p>{obj.conten}<a href={obj.link}>continue reading...</a></p>
+                </div>
             </div>
         );
 
         return (
-            <div className="article-body">
-                <h1>Top {max} Headlines of: www.gsmarena.com</h1>
+            <div className="article-body" id={"gsmarena"}>
+                <h1>Top {max} Latest News of: <a href={"http://www.gsmarena.com"}>www.gsmarena.com</a></h1>
                 {cn}
             </div>
         );
